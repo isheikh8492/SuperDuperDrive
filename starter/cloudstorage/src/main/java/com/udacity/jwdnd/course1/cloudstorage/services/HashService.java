@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -19,11 +20,9 @@ public class HashService {
     public String getHashedValue(String data, String salt) {
         byte[] hashedValue = null;
 
-        int iterCount = 12288;
-        int derivedKeyLength = 256;
-        KeySpec spec = new PBEKeySpec(data.toCharArray(), salt.getBytes(), iterCount, derivedKeyLength * 8);
+        KeySpec spec = new PBEKeySpec(data.toCharArray(), salt.getBytes(), 5000, 128);
         try {
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             hashedValue = factory.generateSecret(spec).getEncoded();
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
             logger.error(e.getMessage());
