@@ -33,6 +33,7 @@ public class HomeController {
 
         model.addAttribute("files", fileService.getAllFiles(user.getUserId()));
         model.addAttribute("notes", noteService.getAllNotes(user.getUserId()));
+        model.addAttribute("credentials", credentialsService.getAllCredentials(user.getUserId()));
         return "home";
     }
 

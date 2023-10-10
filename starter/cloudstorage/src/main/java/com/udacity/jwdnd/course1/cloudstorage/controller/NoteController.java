@@ -28,7 +28,6 @@ public class NoteController {
     public String handleAddOrUpdateNote(Note note, Authentication authentication) {
         String loggedInUserName = authentication.getPrincipal().toString();
         User user = userMapper.getUser(loggedInUserName);
-        System.out.println(note);
         if (note.getNoteId() != null) {
             noteService.updateNote(note);
         } else {
@@ -51,6 +50,4 @@ public class NoteController {
         redirectAttributes.addAttribute("error", "Unable to delete the note.");
         return "redirect:/result?error";
     }
-
-
 }
